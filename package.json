@@ -7,7 +7,9 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "db:generate": "drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./src/lib/db/schema.ts"
+        "db:push": "drizzle-kit push:sqlite",
+        "db:generate": "drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./src/lib/db/schema.ts",
+        "db:studio": "drizzle-kit studio"
     },
     "dependencies": {
         "@auth/drizzle-adapter": "^0.3.8",
@@ -21,6 +23,7 @@
         "drizzle-orm": "^0.29.0",
         "lucide-react": "^0.292.0",
         "next": "14.0.3",
+        "next-auth": "5.0.0-beta.3",
         "next-themes": "^0.2.1",
         "react": "^18",
         "react-dom": "^18",

@@ -10,8 +10,19 @@ import {
 
 import { Button } from "../ui/button";
 import { CreditCard, LogOut, Settings, User2 } from "lucide-react";
+import { auth, signOut } from "@/lib/auth";
+import SignInButton from "./sign-in-button";
 
-const User = () => {
+const User = async () => {
+    const session = await auth();
+
+    if (!session)
+        return (
+            <li>
+                <SignInButton />
+            </li>
+        );
+
     return (
         <li>
             <DropdownMenu>
@@ -26,23 +37,32 @@ const User = () => {
                     <DropdownMenuItem>
                         <User2 className="mr-2 h-4 w-4" />
                         <span>Profile</span>
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <CreditCard className="mr-2 h-4 w-4" />
                         <span>Billing</span>
-                        <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Settings className="mr-2 h-4 w-4" />
                         <span>Settings</span>
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Log out</span>
-                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                    <DropdownMenuItem asChild>
+                        <form
+                            action={async () => {
+                                "use server";
+                                await signOut();
+                            }}
+                        >
+                            <button className="w-full flex items-center">
+                                <LogOut className="mr-2 h-4 w-4" />
+                                <span>Log out</span>
+                                {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+                            </button>
+                        </form>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
